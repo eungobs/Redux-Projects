@@ -64,9 +64,11 @@ This is just the beginning—our plan is to continuously improve the app, making
 
 ### Steps
 1. **Clone the repository**:
-   ```bash
+  
    git clone https://github.com/eungobs/Redux-Projects.git
    cd Redux-Projects
+   mkdir shopping-list-helper
+   cd shopping-list-helper
 
 Install the dependencies:
 
@@ -109,6 +111,8 @@ Continuous Improvements: We are committed to making this app better and more use
 User Feedback: Incorporate feedback from users to enhance functionality and user experience.
 Enhanced Accessibility: Ensure the app is accessible to everyone, including those with disabilities.
 
+start date
+Friday 16th August 2024.
 Due Date
 The project is due on Wednesday, 21st of August 2024.
 
