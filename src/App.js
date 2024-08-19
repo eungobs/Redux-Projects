@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HomePage from './components/HomePage';
 import ShoppingList from './components/ShoppingList';
@@ -22,6 +22,10 @@ function App() {
     setRegisterOpen(false);
   };
 
+  const PrivateRoute = ({ element }) => {
+    return isAuthenticated ? element : <Navigate to="/login" />;
+  };
+
   return (
     <Router>
       <div className="app-container">
@@ -29,10 +33,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage onRegister={openRegister} />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/shopping" element={<ShoppingList />} />
-          <Route path="/add" element={<AddItemForm />} />
-          <Route path="/edit/:id" element={<EditItem />} />
-          <Route path="/share" element={<ShareList />} />
+          <Route path="/register" element={<RegisterPage onClose={closeRegister} />} />
+          <Route path="/shopping" element={<PrivateRoute element={<ShoppingList />} />} />
+          <Route path="/add" element={<PrivateRoute element={<AddItemForm />} />} />
+          <Route path="/edit/:id" element={<PrivateRoute element={<EditItem />} />} />
+          <Route path="/share" element={<PrivateRoute element={<ShareList />} />} />
         </Routes>
         {isRegisterOpen && <RegisterPage onClose={closeRegister} />}
       </div>
@@ -41,3 +46,4 @@ function App() {
 }
 
 export default App;
+

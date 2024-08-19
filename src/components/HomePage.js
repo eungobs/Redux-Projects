@@ -20,6 +20,9 @@ const HomePage = () => {
   const handleNavigation = (path) => {
     if (!isAuthenticated) {
       dispatch({ type: 'auth/loginFailure', payload: 'You must be logged in to access this page.' });
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000); // Simulate a 2-second loading time
       return;
     }
 
@@ -31,11 +34,19 @@ const HomePage = () => {
   };
 
   const handleLoginClick = () => {
-    navigate('/login');
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate('/login');
+    }, 2000);
   };
 
   const handleRegisterClick = () => {
-    navigate('/register');
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate('/register');
+    }, 2000);
   };
 
   return (

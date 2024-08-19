@@ -13,3 +13,25 @@ button {
 .btn-info {
   background-color: #17a2b8;
 }
+
+/* Existing styles in App.css */
+
+/* Loader styles */
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #000;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 9999; /* Ensure the loader is above other elements */
+}
+
+.loader p {
+  margin: 0;
+  font-weight: bold;
+}
+
