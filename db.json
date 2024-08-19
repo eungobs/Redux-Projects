@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Apples",
+      "quantity": "2 kg",
+      "notes": "Get the green ones"
+    },
+    {
+      "id": 2,
+      "name": "Bananas",
+      "quantity": "1 dozen",
+      "notes": "Prefer ripe ones"
+    },
+    {
+      "id": 3,
+      "name": "Milk",
+      "quantity": "1 liter",
+      "notes": "Full cream"
+    }
+  ]
+}

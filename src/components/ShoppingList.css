@@ -1,0 +1,131 @@
+/* ShoppingList.css */
+
+.shopping-list-container {
+  background-color: #f8f9fa; /* Light background color */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.list-item {
+  background-color: #343a40; /* Dark background color for list items */
+  color: #f8f9fa; /* Light text color */
+  border: 1px solid #495057; /* Border color for list items */
+  border-radius: 4px;
+}
+
+.icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+input[type="text"] {
+  border-radius: 0;
+}
+
+input[type="text"] + input[type="text"] {
+  margin-left: 0.5rem;
+}
+
+input[type="text"] + input[type="text"] + input[type="text"] {
+  margin-left: 0.5rem;
+}
+
+button {
+  margin-left: 0.5rem;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .shopping-list-container {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .shopping-list-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .shopping-list-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .shopping-list-container {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 840px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 880px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 780px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .shopping-list-container {
+    padding: 0.5rem;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "short_name": "ShoppingList",
+  "name": "Shopping List Application",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#343a40",
+  "background_color": "#ffffff"
+}

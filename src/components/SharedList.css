@@ -1,0 +1,83 @@
+.shopping-list-container {
+  background-color: #343a40;
+  color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.list-item {
+  background-color: #495057;
+  color: #f8f9fa;
+  margin-bottom: 10px;
+  border: none;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: #ffc107;
+}
+
+@media (max-width: 768px) {
+  .shopping-list-container {
+    padding: 10px;
+  }
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .shared-list-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .shared-list-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .shared-list-container {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .shared-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .shared-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .shared-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shared-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .shared-list-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .shared-list-container {
+    padding: 0.5rem;
+  }
+}
