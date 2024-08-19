@@ -1,46 +1,64 @@
 .homepage {
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  text-align: center;
-  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100vh;
+  justify-content: center; /* Center content vertically */
+  background-color: #fff; /* Optional: Set a background color for the homepage */
+  overflow: hidden; /* Prevent content overflow */
 }
 
-.homepage h1 {
-  font-size: 3rem;
+.homepage-image {
+  width: 60%; /* Further reduce the width */
+  height: 20%; /* Further reduce the height */
+  background-size: contain; /* Ensure the image fits within the container */
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 20px; /* Space between the image and text */
+}
+
+.homepage-text {
+  text-align: center;
+  padding: 20px;
+  color: #4b0082; /* Dark Purple */
+  width: 100%;
+}
+
+.homepage-text h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.homepage-text p {
+  font-size: 1rem;
   margin-bottom: 20px;
-  color: #4b0082; /* Dark Purple */
-}
-
-.homepage p {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  color: #4b0082; /* Dark Purple */
 }
 
 .homepage-buttons {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center;
+  gap: 15px; /* Space between buttons */
+  margin-bottom: 20px; /* Space at the bottom */
 }
 
 .homepage-buttons .btn {
-  padding: 15px 30px;
-  font-size: 1.2rem;
+  padding: 10px 20px;
+  font-size: 1rem;
   border-radius: 5px;
+  text-decoration: none;
+  color: #fff;
+  width: 80%; /* Ensure buttons fit well on smaller screens */
 }
 
 .homepage-buttons .btn-primary {
   background-color: #6f42c1; /* Purple */
   border: none;
-  color: #fff;
 }
 
 .homepage-buttons .btn-secondary {
   background-color: #343a40; /* Dark Grey */
   border: none;
-  color: #fff;
 }
 
 .homepage-buttons .btn-primary:hover,
@@ -48,152 +66,126 @@
   opacity: 0.8;
 }
 
+.homepage-footer {
+  background-color: #f8f9fa;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Loader Styles */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #4b0082; /* Dark Purple */
+}
+
+.loader p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
 /* Media Queries for Responsiveness */
-@media (max-width: 1400px) {
-  .homepage h1 {
-    font-size: 2.8rem;
-  }
-
-  .homepage p {
-    font-size: 1.4rem;
-  }
-}
-
 @media (max-width: 1200px) {
-  .homepage h1 {
-    font-size: 2.5rem;
-  }
-
-  .homepage p {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 1080px) {
-  .homepage h1 {
-    font-size: 2.3rem;
-  }
-
-  .homepage p {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 980px) {
-  .homepage h1 {
-    font-size: 2rem;
-  }
-
-  .homepage p {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 900px) {
-  .homepage h1 {
+  .homepage-text h1 {
     font-size: 1.8rem;
   }
 
-  .homepage p {
-    font-size: 1rem;
-  }
-
-  .homepage-buttons .btn {
-    padding: 12px 25px;
-  }
-}
-
-@media (max-width: 840px) {
-  .homepage h1 {
-    font-size: 1.6rem;
-  }
-
-  .homepage p {
+  .homepage-text p {
     font-size: 0.9rem;
   }
 }
 
-@media (max-width: 740px) {
-  .homepage h1 {
-    font-size: 1.4rem;
+@media (max-width: 900px) {
+  .homepage-text h1 {
+    font-size: 1.6rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.8rem;
+  }
+
+  .homepage-buttons .btn {
+    padding: 8px 16px;
   }
 }
 
 @media (max-width: 680px) {
-  .homepage h1 {
-    font-size: 1.3rem;
+  .homepage-text h1 {
+    font-size: 1.4rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.7rem;
   }
 }
 
 @media (max-width: 580px) {
-  .homepage h1 {
-    font-size: 1.2rem;
+  .homepage-text h1 {
+    font-size: 1.3rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.6rem;
   }
 }
 
 @media (max-width: 540px) {
-  .homepage h1 {
-    font-size: 1.1rem;
+  .homepage-text h1 {
+    font-size: 1.2rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .homepage h1 {
+  .homepage-text h1 {
     font-size: 1rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.4rem;
   }
 
   .homepage-buttons .btn {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 420px) {
-  .homepage h1 {
+  .homepage-text h1 {
     font-size: 0.9rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.3rem;
   }
 }
 
 @media (max-width: 380px) {
-  .homepage h1 {
+  .homepage-text h1 {
     font-size: 0.8rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.3rem;
   }
 }
 
 @media (max-width: 320px) {
-  .homepage h1 {
+  .homepage-text h1 {
     font-size: 0.7rem;
   }
 
-  .homepage p {
+  .homepage-text p {
     font-size: 0.3rem;
   }
 }

@@ -1,23 +1,60 @@
- import React from 'react';
-import { Link } from 'react-router-dom';
-import './HomePage.css'; 
-import shopinglistimage from '../images/shopinglistimage.png'; // Import the image
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import './HomePage.css';
 
 const HomePage = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate(path);
+    }, 2000); // Simulate a 2-second loading time
+  };
+
   return (
-    <div
-      className="homepage"
-      style={{ backgroundImage: `url(${shopinglistimage})` }} // Inline style for background image
-    >
-      <h1>Welcome to the Shopping List App</h1>
-      <p>Your one-stop solution for managing your shopping lists.</p>
-      <div className="homepage-buttons">
-        <Link to="/shopping" className="btn btn-primary">Go to Shopping List</Link>
-        <Link to="/share" className="btn btn-secondary">Share a List</Link>
+    <div className="homepage">
+      <div
+        className="homepage-image"
+        style={{ 
+          backgroundImage: `url('/images/shopinglistimage.png')`,
+        }}
+      />
+      <div className="homepage-text">
+        <h1>Welcome to the Shopping List Helper</h1>
+        <p>Your one-stop solution for managing your shopping lists.</p>
+
+        {loading ? (
+          <div className="loader">
+            <FontAwesomeIcon icon={faShoppingCart} spin size="3x" />
+            <p>Loading...</p>
+          </div>
+        ) : (
+          <div className="homepage-buttons">
+            <button
+              onClick={() => handleNavigation('/shopping')}
+              className="btn btn-primary"
+            >
+              Go to Shopping List
+            </button>
+            <button
+              onClick={() => handleNavigation('/share')}
+              className="btn btn-secondary"
+            >
+              Share a List
+            </button>
+          </div>
+        )}
       </div>
+      <footer className="homepage-footer">
+        @2024 Shopping-List-Helper. All rights reserved.
+      </footer>
     </div>
   );
 };
 
 export default HomePage;
-
