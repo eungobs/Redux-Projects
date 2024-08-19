@@ -4,6 +4,9 @@ import { editItem, fetchItems } from '../features/items/itemSlice';
 import { Button, Form, Container } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 
+// Define categories here or import them if they are defined elsewhere
+const categories = ['Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+
 const EditItem = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,6 +17,7 @@ const EditItem = () => {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [notes, setNotes] = useState('');
+  const [category, setCategory] = useState('Vegetables'); // Default category
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -24,12 +28,13 @@ const EditItem = () => {
       setName(item.name);
       setQuantity(item.quantity);
       setNotes(item.notes);
+      setCategory(item.category || 'Vegetables'); // Set category if available
     }
   }, [item]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editItem(id, { name, quantity, notes }));
+    dispatch(editItem(id, { name, quantity, notes, category }));
     navigate('/');
   };
 
@@ -63,6 +68,18 @@ const EditItem = () => {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Category</Form.Label>
+          <Form.Control
+            as="select"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </Form.Control>
         </Form.Group>
         <Button variant="warning" type="submit">Update Item</Button>
       </Form>

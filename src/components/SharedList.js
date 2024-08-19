@@ -36,7 +36,10 @@ const SharedList = () => {
         {items.map((item) => (
           <ListGroup.Item key={item.id} className="list-item">
             <div className="item-content">
-              <span className="item-name">{item.name}</span> - <span className="item-quantity">{item.quantity}</span>
+              <span className="item-name">{item.name}</span> - 
+              <span className="item-quantity"> {item.quantity}</span>
+              <br />
+              <span className="item-category">Category: {item.category}</span>
               <br />
               <span className="item-notes">Notes: {item.notes}</span>
             </div>

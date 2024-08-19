@@ -1,43 +1,59 @@
-/* ShoppingList.css */
-
 .shopping-list-container {
-  background-color: #f8f9fa; /* Light background color */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #343a40; /* Dark background color */
+  color: #f8f9fa; /* Light text color */
+  border-radius: 10px; /* Rounded corners for the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle 3D effect */
 }
 
 .list-item {
-  background-color: #343a40; /* Dark background color for list items */
-  color: #f8f9fa; /* Light text color */
-  border: 1px solid #495057; /* Border color for list items */
-  border-radius: 4px;
+  background-color: #495057; /* Slightly lighter background color for list items */
+  margin-bottom: 10px;
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners for list items */
 }
 
 .icon {
-  font-size: 1.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  font-size: 1.2rem;
+  transition: color 0.3s;
 }
 
-.icon:hover {
-  color: #007bff; /* Change color on hover */
+.edit-icon {
+  color: #17a2b8; /* Edit icon color */
 }
 
-input[type="text"] {
-  border-radius: 0;
+.delete-icon {
+  color: #dc3545; /* Delete icon color */
 }
 
-input[type="text"] + input[type="text"] {
-  margin-left: 0.5rem;
+.edit-icon:hover {
+  color: #138496; /* Darker shade for hover effect */
 }
 
-input[type="text"] + input[type="text"] + input[type="text"] {
-  margin-left: 0.5rem;
+.delete-icon:hover {
+  color: #c82333; /* Darker shade for hover effect */
 }
 
-button {
-  margin-left: 0.5rem;
+input-group .form-control {
+  margin-right: 5px;
 }
+
+.dropdown-toggle::after {
+  display: none; /* Hide default dropdown arrow */
+}
+
+.dropdown-menu {
+  background-color: #495057;
+}
+
+.dropdown-item {
+  color: #f8f9fa;
+}
+
+.dropdown-item:hover {
+  background-color: #343a40;
+}
+
 
 /* Media Queries for Responsiveness */
 @media (max-width: 1200px) {

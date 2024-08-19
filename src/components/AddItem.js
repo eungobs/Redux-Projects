@@ -4,16 +4,20 @@ import { createItem } from '../features/items/itemSlice';
 import { Button, Form, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
+// Define categories here or import them if they are defined elsewhere
+const categories = ['Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+
 const AddItem = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [notes, setNotes] = useState('');
+  const [category, setCategory] = useState('Vegetables'); // Default category
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createItem({ name, quantity, notes }));
+    dispatch(createItem({ name, quantity, notes, category }));
     history.push('/');
   };
 
@@ -47,6 +51,18 @@ const AddItem = () => {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Category</Form.Label>
+          <Form.Control
+            as="select"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </Form.Control>
         </Form.Group>
         <Button variant="success" type="submit">Add Item</Button>
       </Form>

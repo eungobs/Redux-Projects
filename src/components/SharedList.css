@@ -1,15 +1,36 @@
-.shopping-list-container {
-  background-color: #343a40;
-  color: #f8f9fa;
-  padding: 20px;
-  border-radius: 5px;
+.shared-list-container {
+  background-color: #f8f9fa;
+  padding: 2rem;
 }
 
 .list-item {
-  background-color: #495057;
-  color: #f8f9fa;
-  margin-bottom: 10px;
-  border: none;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-weight: bold;
+}
+
+.item-category {
+  font-style: italic;
+  color: #6c757d;
+}
+
+.item-quantity, .item-notes {
+  color: #343a40;
+}
+
+
+.list-item-category {
+  font-style: italic;
+  color: #6c757d;
 }
 
 .icon {

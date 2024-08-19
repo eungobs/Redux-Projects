@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ListGroup, Spinner, InputGroup, Form, Col, Row, Container } from 'react-bootstrap';
+import { Button, ListGroup, Spinner, InputGroup, Form, Col, Row, Container, Dropdown } from 'react-bootstrap';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; // Importing icons from react-icons
 import { fetchItems, updateItem, deleteItem } from '../features/items/itemSlice';
 import AddItemForm from './AddItemForm'; // Import the AddItemForm component
 import ShareList from './ShareList';
 import './ShoppingList.css'; // Import custom CSS file for additional styling
 
+const categories = ['Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+
 const ShoppingList = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items.items);
   const status = useSelector((state) => state.items.status);
   const [editId, setEditId] = useState(null);
-  const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '' });
+  const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '', category: 'Vegetables' });
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -22,7 +25,7 @@ const ShoppingList = () => {
     if (editItem.name && editItem.quantity) {
       dispatch(updateItem({ id: editId, updatedItem: editItem }));
       setEditId(null);
-      setEditItem({ name: '', quantity: '', notes: '' });
+      setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables' });
     } else {
       alert("Please enter both item name and quantity");
     }
@@ -34,8 +37,10 @@ const ShoppingList = () => {
 
   const startEdit = (item) => {
     setEditId(item.id);
-    setEditItem({ name: item.name, quantity: item.quantity, notes: item.notes });
+    setEditItem({ name: item.name, quantity: item.quantity, notes: item.notes, category: item.category });
   };
+
+  const filteredItems = selectedCategory === 'All' ? items : items.filter(item => item.category === selectedCategory);
 
   if (status === 'loading') return <Spinner animation="border" variant="primary" />;
 
@@ -51,9 +56,24 @@ const ShoppingList = () => {
           </Button>
         </Col>
       </Row>
+      <Row className="mb-4">
+        <Col md={12}>
+          <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              {selectedCategory || 'Select Category'}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item eventKey="All">All</Dropdown.Item>
+              {categories.map(category => (
+                <Dropdown.Item key={category} eventKey={category}>{category}</Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+      </Row>
       <AddItemForm /> {/* Include AddItemForm here */}
       <ListGroup>
-        {items.map((item) => (
+        {filteredItems.map((item) => (
           <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center list-item">
             {editId === item.id ? (
               <InputGroup>
@@ -72,17 +92,26 @@ const ShoppingList = () => {
                   value={editItem.notes}
                   onChange={(e) => setEditItem({ ...editItem, notes: e.target.value })}
                 />
+                <Form.Control
+                  as="select"
+                  value={editItem.category}
+                  onChange={(e) => setEditItem({ ...editItem, category: e.target.value })}
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </Form.Control>
                 <Button variant="success" onClick={handleEdit}>Save</Button>
                 <Button variant="secondary" onClick={() => setEditId(null)}>Cancel</Button>
               </InputGroup>
             ) : (
-              <div className="d-flex align-items-center">
-                <div className="me-3">
-                  <span>{item.name} - {item.quantity} <br /> Notes: {item.notes}</span>
+              <div className="d-flex align-items-center justify-content-between">
+                <div>
+                  <span>{item.name} - {item.quantity} <br /> Notes: {item.notes} <br /> Category: {item.category}</span>
                 </div>
                 <div>
-                  <FaEdit className="icon me-3" onClick={() => startEdit(item)} title="Edit" />
-                  <FaTrash className="icon" onClick={() => handleDelete(item.id)} title="Delete" />
+                  <FaEdit className="icon edit-icon me-3" onClick={() => startEdit(item)} title="Edit" />
+                  <FaTrash className="icon delete-icon" onClick={() => handleDelete(item.id)} title="Delete" />
                 </div>
               </div>
             )}
