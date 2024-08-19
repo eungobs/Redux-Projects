@@ -66,6 +66,23 @@
   opacity: 0.8;
 }
 
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 15px; /* Space between icons */
+}
+
+.social-icon {
+  color: #4b0082; /* Dark Purple */
+  font-size: 1.5rem; /* Size of the icons */
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #6f42c1; /* Change to a lighter purple on hover */
+}
+
 .homepage-footer {
   background-color: #f8f9fa;
   width: 100%;
@@ -90,6 +107,39 @@
   font-size: 1.2rem;
 }
 
+.login-error {
+  margin-top: 20px;
+  color: red;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login-error p {
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+.login-error:hover p {
+  color: darkred;
+}
+
+.homepage-buttons .btn-register {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.homepage-buttons .btn-register:hover {
+  background-color: #45a049; /* Darker green */
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 1200px) {
   .homepage-text h1 {
@@ -112,6 +162,10 @@
 
   .homepage-buttons .btn {
     padding: 8px 16px;
+  }
+
+  .social-icon {
+    font-size: 1.3rem; /* Adjust icon size for smaller screens */
   }
 }
 
@@ -188,4 +242,9 @@
   .homepage-text p {
     font-size: 0.3rem;
   }
+
+  .social-icon {
+    font-size: 1.2rem; /* Further reduce icon size */
+  }
 }
+

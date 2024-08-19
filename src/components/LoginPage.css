@@ -1,0 +1,204 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.login-container button {
+  padding: 10px;
+  width: 220px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  color: #333;
+  cursor: pointer;
+}
+
+/* Media Queries for Different Screen Widths */
+
+/* Large screens */
+@media (max-width: 1200px) {
+  .login-container {
+    width: 280px;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1000px) {
+  .login-container {
+    width: 260px;
+  }
+}
+
+@media (max-width: 980px) {
+  .login-container {
+    width: 250px;
+  }
+}
+
+@media (max-width: 940px) {
+  .login-container {
+    width: 240px;
+  }
+}
+
+@media (max-width: 900px) {
+  .login-container {
+    width: 230px;
+  }
+}
+
+@media (max-width: 880px) {
+  .login-container {
+    width: 220px;
+  }
+}
+
+@media (max-width: 840px) {
+  .login-container {
+    width: 210px;
+  }
+}
+
+@media (max-width: 780px) {
+  .login-container {
+    width: 200px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 740px) {
+  .login-container {
+    width: 190px;
+  }
+}
+
+@media (max-width: 680px) {
+  .login-container {
+    width: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-container {
+    width: 170px;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    width: 160px;
+  }
+}
+
+@media (max-width: 580px) {
+  .login-container {
+    width: 150px;
+  }
+}
+
+@media (max-width: 540px) {
+  .login-container {
+    width: 140px;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-container {
+    width: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    width: 120px;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-container {
+    width: 110px;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-container {
+    width: 100px;
+  }
+}
+
+@media (max-width: 320px) {
+  .login-container {
+    width: 90px;
+  }
+}
+
+/* Additional styling to make the content fit smaller screens */
+@media (max-width: 600px) {
+  .login-container h2 {
+    font-size: 18px;
+  }
+
+  .form-group input {
+    padding: 6px;
+  }
+
+  .login-btn {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-container h2 {
+    font-size: 16px;
+  }
+
+  .form-group input {
+    padding: 5px;
+  }
+
+  .login-btn {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 320px) {
+  .login-container h2 {
+    font-size: 14px;
+  }
+
+  .form-group input {
+    padding: 4px;
+  }
+
+  .login-btn {
+    padding: 5px;
+    font-size: 10px;
+  }
+}
