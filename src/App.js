@@ -12,6 +12,13 @@ import RegisterPage from './components/RegisterPage'; // Import RegisterPage com
 
 function App() {
   const [isRegisterOpen, setRegisterOpen] = useState(false); // State to manage registration popup visibility
+  // eslint-disable-next-line no-unused-vars
+  const [items, setItems] = useState([
+    'Apples',
+    'Oranges',
+    'Bananas',
+    // more items
+  ]);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const openRegister = () => {
@@ -22,6 +29,14 @@ function App() {
     setRegisterOpen(false);
   };
 
+  const handleSearch = (query) => {
+    const filteredItems = items.filter(item =>
+      item.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log('Search results:', filteredItems);
+    // Update your state or display the filtered items as needed
+  };
+
   const PrivateRoute = ({ element }) => {
     return isAuthenticated ? element : <Navigate to="/login" />;
   };
@@ -29,7 +44,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        {isAuthenticated && <SearchBar />}
+        {isAuthenticated && <SearchBar onSearch={handleSearch} />}
         <Routes>
           <Route path="/" element={<HomePage onRegister={openRegister} />} />
           <Route path="/login" element={<LoginPage />} />

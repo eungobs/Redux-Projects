@@ -1,55 +1,184 @@
+/* Container and Background */
 .shopping-list-container {
-  background-color: #343a40; /* Dark background color */
-  color: #f8f9fa; /* Light text color */
-  border-radius: 8px; /* Rounded corners for the container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle 3D effect */
+  background-color: #f0f4f8; /* Light greyish-blue background */
+  color: #333; /* Darker text color */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: auto;
 }
 
+/* List Item as Card */
 .list-item {
-  background-color: #495057; /* Slightly lighter background color for list items */
-  margin-bottom: 10px;
-  border: 1px solid #dee2e6; /* Border for list items */
-  border-radius: 8px; /* Rounded corners for list items */
-  border: none; /* Remove border */
+  background-color: #ffffff; /* White background for each item card */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
 }
 
+.list-item:hover {
+  transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+/* Buttons */
+button {
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.button-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.button-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-danger:hover {
+  background-color: #b21f2d; /* Darker red on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* WhatsApp Success Button */
+.button-success {
+  background-color: #25D366; /* WhatsApp green */
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.button-success:hover {
+  background-color: #1da851; /* Darker WhatsApp green on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Icons */
 .icon {
   cursor: pointer;
-  font-size: 1.2em; /* Slightly larger icons */
-  transition: color 0.3s, opacity 0.3s; /* Smooth transition for color and opacity */
+  font-size: 1.5em; /* Larger icon size */
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.icon:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
 }
 
 .edit-icon {
-  color: #0d6efd; /* Edit icon color */
+  color: #ffc107; /* Yellow color for edit */
+}
+
+.edit-icon:hover {
+  color: #d39e00; /* Darker yellow on hover */
 }
 
 .delete-icon {
-  color: #dc3545; /* Delete icon color */
+  color: #dc3545; /* Red color for delete */
 }
 
-.edit-icon:hover, .delete-icon:hover {
-  opacity: 0.8; /* Slightly transparent on hover */
+.delete-icon:hover {
+  color: #b21f2d; /* Darker red on hover */
 }
 
-.input-group .form-control {
-  margin-right: 5px;
+/* Form Design */
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.dropdown-toggle::after {
-  display: none; /* Hide default dropdown arrow */
+.form-control {
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Dropdown */
+.dropdown-toggle {
+  background-color: #6c757d;
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 10px;
+  border: none;
 }
 
 .dropdown-menu {
-  background-color: #495057;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-item {
-  color: #f8f9fa;
+  color: #333;
+  padding: 10px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .dropdown-item:hover {
-  background-color: #343a40;
+  background-color: #007bff;
+  color: white;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shopping-list-container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .form-control {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .icon {
+    font-size: 1.2em;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+
+  .list-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .list-item > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+
 
 /* Media Queries for Responsiveness */
 @media (max-width: 1200px) {

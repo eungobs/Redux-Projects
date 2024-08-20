@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { addItem } from '../features/items/itemSlice';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 
-// Updated categories array
 const categories = [
   'Vegetables', 
   'Cleaning Products', 
@@ -70,20 +69,16 @@ const AddItemForm = () => {
           </Col>
         </Row>
         <Row className="mb-3">
-          <Col md={12}>
+          <Col md={6}>
             <Form.Group>
               <Form.Label>Notes</Form.Label>
               <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Add any notes"
+                placeholder="Enter any notes"
                 value={item.notes}
                 onChange={(e) => setItem({ ...item, notes: e.target.value })}
               />
             </Form.Group>
           </Col>
-        </Row>
-        <Row className="mb-3">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Category</Form.Label>
@@ -98,6 +93,8 @@ const AddItemForm = () => {
               </Form.Control>
             </Form.Group>
           </Col>
+        </Row>
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Date</Form.Label>
@@ -109,9 +106,7 @@ const AddItemForm = () => {
             </Form.Group>
           </Col>
         </Row>
-        <div className="text-center">
-          <Button variant="success" type="submit">Add Item</Button>
-        </div>
+        <Button type="submit" variant="primary">Add Item</Button>
       </Form>
     </div>
   );

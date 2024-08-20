@@ -1,30 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ListGroup, Spinner, InputGroup, Form, Col, Row, Container, Dropdown } from 'react-bootstrap';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa'; // Importing icons from react-icons
-import { fetchItems, updateItem, deleteItem } from '../features/items/itemSlice';
-import AddItemForm from './AddItemForm'; // Import the AddItemForm component
-import ShareList from './ShareList';
-import './ShoppingList.css'; // Import custom CSS file for additional styling
-
-// Updated categories array
-const categories = [
-  'All',
-  'Vegetables',
-  'Cleaning Products',
-  'Cosmetics',
-  'Clothes',
-  'Hardware',
-  'Fruits',
-  'Bakery',
-  'Snacks',
-  'Beverages',
-  'Dairy Products',
-  'Meat',
-  'Pharmacy',
-  'Frozen',
-  'Other'
-];
+import { fetchItems, addItem, updateItem, deleteItem } from '../features/items/itemSlice';
+import { FaPlus, FaWhatsapp, FaTrash, FaEdit } from 'react-icons/fa';
+import { Container, Row, Col, Form, Button, ListGroup, Dropdown } from 'react-bootstrap';
+import './ShoppingList.css'; // Import the CSS file for styling
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -38,123 +17,165 @@ const ShoppingList = () => {
     dispatch(fetchItems());
   }, [dispatch]);
 
-  const handleEdit = () => {
-    if (editItem.name && editItem.quantity) {
-      dispatch(updateItem({ id: editId, updatedItem: editItem }));
-      setEditId(null);
-      setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditItem((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSaveItem = () => {
+    if (editId) {
+      dispatch(updateItem({ id: editId, ...editItem }));
     } else {
-      alert("Please enter both item name and quantity");
+      dispatch(addItem(editItem));
     }
+    setEditId(null);
+    setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      dispatch(deleteItem(id));
-    }
-  };
-
-  const startEdit = (item) => {
+  const handleEditItem = (item) => {
     setEditId(item.id);
-    setEditItem({ name: item.name, quantity: item.quantity, notes: item.notes, category: item.category, date: item.date });
+    setEditItem(item);
   };
 
-  const handleLogout = () => {
-    // Clear any authentication tokens or user data here
-    localStorage.removeItem('authToken'); // Example: Remove token from localStorage
-
-    // Redirect to the homepage
-    window.location.href = '/';
+  const handleDeleteItem = (id) => {
+    dispatch(deleteItem(id));
   };
 
-  const filteredItems = selectedCategory === 'All' ? items : items.filter(item => item.category === selectedCategory);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
-  if (status === 'loading') return <Spinner animation="border" variant="primary" />;
+  const generateListMessage = (items) => {
+    let message = 'Here is my shopping list:\n\n';
+    items.forEach(item => {
+      message += `• ${item.name} - ${item.quantity}\n`;
+      if (item.notes) {
+        message += `  Notes: ${item.notes}\n`;
+      }
+      if (item.category) {
+        message += `  Category: ${item.category}\n`;
+      }
+      if (item.date) {
+        message += `  Date: ${new Date(item.date).toLocaleDateString()}\n`;
+      }
+      message += '\n';
+    });
+    return encodeURIComponent(message); // Encodes the message for URL
+  };
+
+  const handleShare = () => {
+    const message = generateListMessage(items);
+    const whatsappUrl = `https://wa.me/?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const filteredItems = selectedCategory === 'All'
+    ? items
+    : items.filter(item => item.category === selectedCategory);
 
   return (
-    <Container className="bg-light text-dark p-4 shopping-list-container">
-      <Row className="mb-4">
+    <Container className="shopping-list-container">
+      <Row className="mb-4 align-items-center">
         <Col md={8}>
-          <h2 className="my-4">Shopping List</h2>
+          <h2>Shopping List</h2>
         </Col>
         <Col md={4} className="text-end">
-          <Button variant="success" className="d-flex align-items-center me-3" onClick={() => setEditId(null)}>
+          <Button className="button-primary me-3" onClick={() => setEditId(null)}>
             <FaPlus className="me-2" /> Add New Item
           </Button>
-          <Button variant="danger" onClick={handleLogout}>
+          <Button className="button-success me-3" onClick={handleShare}>
+            <FaWhatsapp className="me-2" /> Share List
+          </Button>
+          <Button className="button-danger">
             Logout
           </Button>
         </Col>
       </Row>
+
       <Row className="mb-4">
         <Col md={12}>
-          <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+          <Dropdown>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              {selectedCategory}
+              Filter by Category: {selectedCategory}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {categories.map(category => (
-                <Dropdown.Item key={category} eventKey={category}>{category}</Dropdown.Item>
-              ))}
+              <Dropdown.Item onClick={() => handleCategoryChange('All')}>All</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Vegetables')}>Vegetables</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Fruits')}>Fruits</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Dairy')}>Dairy</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
       </Row>
-      <AddItemForm /> {/* Include AddItemForm here */}
-      <ListGroup className="mt-4">
-        {filteredItems.map((item) => (
-          <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center list-item">
-            {editId === item.id ? (
-              <InputGroup>
-                <Form.Control
-                  placeholder="Item Name"
-                  value={editItem.name}
-                  onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
-                />
-                <Form.Control
-                  placeholder="Quantity"
-                  value={editItem.quantity}
-                  onChange={(e) => setEditItem({ ...editItem, quantity: e.target.value })}
-                />
-                <Form.Control
-                  placeholder="Notes"
-                  value={editItem.notes}
-                  onChange={(e) => setEditItem({ ...editItem, notes: e.target.value })}
-                />
-                <Form.Control
-                  as="select"
-                  value={editItem.category}
-                  onChange={(e) => setEditItem({ ...editItem, category: e.target.value })}
-                >
-                  {categories.map(category => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
-                </Form.Control>
-                <Form.Control
-                  type="date"
-                  value={editItem.date}
-                  onChange={(e) => setEditItem({ ...editItem, date: e.target.value })}
-                />
-                <Button variant="success" onClick={handleEdit}>Save</Button>
-                <Button variant="secondary" onClick={() => setEditId(null)}>Cancel</Button>
-              </InputGroup>
-            ) : (
-              <div className="d-flex align-items-center justify-content-between">
-                <div>
-                  <span>{item.name} - {item.quantity} <br /> Notes: {item.notes} <br /> Category: {item.category} <br /> Date: {new Date(item.date).toLocaleDateString()}</span>
-                </div>
-                <div>
-                  <FaEdit className="icon edit-icon me-3" onClick={() => startEdit(item)} title="Edit" />
-                  <FaTrash className="icon delete-icon" onClick={() => handleDelete(item.id)} title="Delete" />
-                </div>
-              </div>
-            )}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
-      <ShareList />
+
+      <Row>
+        <Col md={6}>
+          <Form>
+            <Form.Group className="mb-3" controlId="formItemName">
+              <Form.Label>Item Name</Form.Label>
+              <Form.Control type="text" name="name" value={editItem.name} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formItemQuantity">
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control type="text" name="quantity" value={editItem.quantity} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formItemNotes">
+              <Form.Label>Notes</Form.Label>
+              <Form.Control type="text" name="notes" value={editItem.notes} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formItemCategory">
+              <Form.Label>Category</Form.Label>
+              <Form.Select name="category" value={editItem.category} onChange={handleInputChange}>
+                <option>Vegetables</option>
+                <option>Fruits</option>
+                <option>Dairy</option>
+                <option>Grains</option>
+                <option>Meat</option>
+                <option>Beverages</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formItemDate">
+              <Form.Label>Date</Form.Label>
+              <Form.Control type="date" name="date" value={editItem.date} onChange={handleInputChange} />
+            </Form.Group>
+            <Button variant="primary" onClick={handleSaveItem}>
+              {editId ? 'Update Item' : 'Add Item'}
+            </Button>
+          </Form>
+        </Col>
+        <Col md={6}>
+          <ListGroup>
+            {status === 'loading' && <div>Loading...</div>}
+            {filteredItems.map(item => (
+              <ListGroup.Item key={item.id}>
+                <Row className="align-items-center">
+                  <Col md={8}>
+                    <strong>{item.name}</strong> - {item.quantity}
+                    <br />
+                    {item.notes && <small>Notes: {item.notes}</small>}
+                    <br />
+                    {item.category && <small>Category: {item.category}</small>}
+                    <br />
+                    {item.date && <small>Date: {new Date(item.date).toLocaleDateString()}</small>}
+                  </Col>
+                  <Col md={4} className="text-end">
+                    <Button variant="outline-primary" className="me-2" onClick={() => handleEditItem(item)}>
+                      <FaEdit />
+                    </Button>
+                    <Button variant="outline-danger" onClick={() => handleDeleteItem(item.id)}>
+                      <FaTrash />
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Col>
+      </Row>
     </Container>
   );
 };
 
 export default ShoppingList;
+
+
