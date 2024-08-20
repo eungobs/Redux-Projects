@@ -6,8 +6,24 @@ import { Link } from 'react-router-dom';
 import ShareList from './ShareList';
 import SearchBar from './SearchBar';
 
-// Define categories here or import them if they are defined elsewhere
-const categories = ['All', 'Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+// Updated categories array
+const categories = [
+  'All',
+  'Vegetables',
+  'Cleaning Products',
+  'Cosmetics',
+  'Clothes',
+  'Hardware',
+  'Fruits',
+  'Bakery',
+  'Snacks',
+  'Beverages',
+  'Dairy Products',
+  'Meat',
+  'Pharmacy',
+  'Frozen',
+  'Other'
+];
 
 const ItemList = () => {
   const dispatch = useDispatch();

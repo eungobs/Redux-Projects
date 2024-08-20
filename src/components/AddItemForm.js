@@ -3,8 +3,23 @@ import { useDispatch } from 'react-redux';
 import { addItem } from '../features/items/itemSlice';
 import { Button, Form } from 'react-bootstrap';
 
-// Define categories here or import them if they are defined elsewhere
-const categories = ['Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+// Updated categories array
+const categories = [
+  'Vegetables', 
+  'Cleaning Products', 
+  'Cosmetics', 
+  'Clothes', 
+  'Hardware', 
+  'Fruits',
+  'Bakery',
+  'Snacks',
+  'Beverages',
+  'Dairy Products',
+  'Meat',
+  'Pharmacy',
+  'Frozen',
+  'Other'
+];
 
 const AddItemForm = () => {
   const dispatch = useDispatch();

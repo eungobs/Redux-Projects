@@ -7,7 +7,24 @@ import AddItemForm from './AddItemForm'; // Import the AddItemForm component
 import ShareList from './ShareList';
 import './ShoppingList.css'; // Import custom CSS file for additional styling
 
-const categories = ['Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+// Updated categories array
+const categories = [
+  'All',
+  'Vegetables',
+  'Cleaning Products',
+  'Cosmetics',
+  'Clothes',
+  'Hardware',
+  'Fruits',
+  'Bakery',
+  'Snacks',
+  'Beverages',
+  'Dairy Products',
+  'Meat',
+  'Pharmacy',
+  'Frozen',
+  'Other'
+];
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -32,12 +49,22 @@ const ShoppingList = () => {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteItem(id));
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      dispatch(deleteItem(id));
+    }
   };
 
   const startEdit = (item) => {
     setEditId(item.id);
     setEditItem({ name: item.name, quantity: item.quantity, notes: item.notes, category: item.category });
+  };
+
+  const handleLogout = () => {
+    // Clear any authentication tokens or user data here
+    localStorage.removeItem('authToken'); // Example: Remove token from localStorage
+
+    // Redirect to the homepage
+    window.location.href = '/';
   };
 
   const filteredItems = selectedCategory === 'All' ? items : items.filter(item => item.category === selectedCategory);
@@ -51,8 +78,11 @@ const ShoppingList = () => {
           <h2 className="my-4">Shopping List</h2>
         </Col>
         <Col md={4} className="text-end">
-          <Button variant="success" className="d-flex align-items-center" onClick={() => setEditId(null)}>
+          <Button variant="success" className="d-flex align-items-center me-3" onClick={() => setEditId(null)}>
             <FaPlus className="me-2" /> Add New Item
+          </Button>
+          <Button variant="danger" onClick={handleLogout}>
+            Logout
           </Button>
         </Col>
       </Row>
@@ -63,7 +93,6 @@ const ShoppingList = () => {
               {selectedCategory || 'Select Category'}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item eventKey="All">All</Dropdown.Item>
               {categories.map(category => (
                 <Dropdown.Item key={category} eventKey={category}>{category}</Dropdown.Item>
               ))}

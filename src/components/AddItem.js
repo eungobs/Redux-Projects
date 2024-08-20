@@ -4,8 +4,23 @@ import { createItem } from '../features/items/itemSlice';
 import { Button, Form, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-// Define categories here or import them if they are defined elsewhere
-const categories = ['Vegetables', 'Cleaning Products', 'Cosmetics', 'Clothes', 'Hardware'];
+// Updated categories array
+const categories = [
+  'Vegetables',
+  'Cleaning Products',
+  'Cosmetics',
+  'Clothes',
+  'Hardware',
+  'Fruits',
+  'Bakery',
+  'Snacks',
+  'Beverages',
+  'Dairy Products',
+  'Meat',
+  'Pharmacy',
+  'Frozen',
+  'Other'
+];
 
 const AddItem = () => {
   const dispatch = useDispatch();
@@ -71,3 +86,4 @@ const AddItem = () => {
 };
 
 export default AddItem;
+

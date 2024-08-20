@@ -49,6 +49,10 @@ const HomePage = () => {
     }, 2000);
   };
 
+  const handleSocialClick = (url) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="homepage">
       <div
@@ -97,11 +101,36 @@ const HomePage = () => {
         )}
       </div>
       <div className="social-icons">
-        <FontAwesomeIcon icon={faWhatsapp} size="2x" className="social-icon" />
-        <FontAwesomeIcon icon={faTwitter} size="2x" className="social-icon" />
-        <FontAwesomeIcon icon={faTiktok} size="2x" className="social-icon" />
-        <FontAwesomeIcon icon={faInstagram} size="2x" className="social-icon" />
-        <FontAwesomeIcon icon={faEnvelope} size="2x" className="social-icon" />
+        <FontAwesomeIcon
+          icon={faWhatsapp}
+          size="2x"
+          className="social-icon"
+          onClick={() => handleSocialClick('https://wa.me/')}
+        />
+        <FontAwesomeIcon
+          icon={faTwitter}
+          size="2x"
+          className="social-icon"
+          onClick={() => handleSocialClick('https://twitter.com/')}
+        />
+        <FontAwesomeIcon
+          icon={faTiktok}
+          size="2x"
+          className="social-icon"
+          onClick={() => handleSocialClick('https://www.tiktok.com/')}
+        />
+        <FontAwesomeIcon
+          icon={faInstagram}
+          size="2x"
+          className="social-icon"
+          onClick={() => handleSocialClick('https://www.instagram.com/')}
+        />
+        <FontAwesomeIcon
+          icon={faEnvelope}
+          size="2x"
+          className="social-icon"
+          onClick={() => handleSocialClick('mailto:someone@example.com')}
+        />
       </div>
       <footer className="homepage-footer">
         @2024 Shopping-List-Helper. All rights reserved.
