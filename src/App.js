@@ -8,17 +8,10 @@ import EditItem from './components/EditItem';
 import ShareList from './components/ShareList';
 import SearchBar from './components/SearchBar';
 import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage'; // Import RegisterPage component
+import RegisterPage from './components/RegisterPage';
 
 function App() {
   const [isRegisterOpen, setRegisterOpen] = useState(false); // State to manage registration popup visibility
-  // eslint-disable-next-line no-unused-vars
-  const [items, setItems] = useState([
-    'Apples',
-    'Oranges',
-    'Bananas',
-    // more items
-  ]);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const openRegister = () => {
@@ -30,11 +23,8 @@ function App() {
   };
 
   const handleSearch = (query) => {
-    const filteredItems = items.filter(item =>
-      item.toLowerCase().includes(query.toLowerCase())
-    );
-    console.log('Search results:', filteredItems);
-    // Update your state or display the filtered items as needed
+    // Handle search functionality
+    console.log('Search query:', query);
   };
 
   const PrivateRoute = ({ element }) => {
@@ -61,4 +51,3 @@ function App() {
 }
 
 export default App;
-

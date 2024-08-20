@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems, addItem, updateItem, deleteItem } from '../features/items/itemSlice';
 import { FaPlus, FaWhatsapp, FaTrash, FaEdit } from 'react-icons/fa';
 import { Container, Row, Col, Form, Button, ListGroup, Dropdown } from 'react-bootstrap';
-import './ShoppingList.css'; // Import the CSS file for styling
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './ShoppingList.css';
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Get the navigate function
   const items = useSelector((state) => state.items.items);
-  const status = useSelector((state) => state.items.status);
   const [editId, setEditId] = useState(null);
   const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -60,13 +61,17 @@ const ShoppingList = () => {
       }
       message += '\n';
     });
-    return encodeURIComponent(message); // Encodes the message for URL
+    return encodeURIComponent(message);
   };
 
   const handleShare = () => {
     const message = generateListMessage(items);
     const whatsappUrl = `https://wa.me/?text=${message}`;
     window.open(whatsappUrl, '_blank');
+  };
+
+  const handleLogout = () => {
+    navigate('/'); // Navigate to the homepage or login page
   };
 
   const filteredItems = selectedCategory === 'All'
@@ -86,7 +91,7 @@ const ShoppingList = () => {
           <Button className="button-success me-3" onClick={handleShare}>
             <FaWhatsapp className="me-2" /> Share List
           </Button>
-          <Button className="button-danger">
+          <Button className="button-danger" onClick={handleLogout}>
             Logout
           </Button>
         </Col>
@@ -101,8 +106,19 @@ const ShoppingList = () => {
             <Dropdown.Menu>
               <Dropdown.Item onClick={() => handleCategoryChange('All')}>All</Dropdown.Item>
               <Dropdown.Item onClick={() => handleCategoryChange('Vegetables')}>Vegetables</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Cleaning Products')}>Cleaning Products</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Cosmetics')}>Cosmetics</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Clothes')}>Clothes</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Hardware')}>Hardware</Dropdown.Item>
               <Dropdown.Item onClick={() => handleCategoryChange('Fruits')}>Fruits</Dropdown.Item>
-              <Dropdown.Item onClick={() => handleCategoryChange('Dairy')}>Dairy</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Bakery')}>Bakery</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Snacks')}>Snacks</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Beverages')}>Beverages</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Dairy Products')}>Dairy Products</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Meat')}>Meat</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Pharmacy')}>Pharmacy</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Frozen')}>Frozen</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleCategoryChange('Other')}>Other</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
@@ -125,14 +141,22 @@ const ShoppingList = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formItemCategory">
               <Form.Label>Category</Form.Label>
-              <Form.Select name="category" value={editItem.category} onChange={handleInputChange}>
-                <option>Vegetables</option>
-                <option>Fruits</option>
-                <option>Dairy</option>
-                <option>Grains</option>
-                <option>Meat</option>
-                <option>Beverages</option>
-              </Form.Select>
+              <Form.Control as="select" name="category" value={editItem.category} onChange={handleInputChange}>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Cleaning Products">Cleaning Products</option>
+                <option value="Cosmetics">Cosmetics</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Snacks">Snacks</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Dairy Products">Dairy Products</option>
+                <option value="Meat">Meat</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Frozen">Frozen</option>
+                <option value="Other">Other</option>
+              </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formItemDate">
               <Form.Label>Date</Form.Label>
@@ -143,23 +167,21 @@ const ShoppingList = () => {
             </Button>
           </Form>
         </Col>
+
         <Col md={6}>
           <ListGroup>
-            {status === 'loading' && <div>Loading...</div>}
             {filteredItems.map(item => (
               <ListGroup.Item key={item.id}>
                 <Row className="align-items-center">
-                  <Col md={8}>
-                    <strong>{item.name}</strong> - {item.quantity}
-                    <br />
-                    {item.notes && <small>Notes: {item.notes}</small>}
-                    <br />
-                    {item.category && <small>Category: {item.category}</small>}
-                    <br />
-                    {item.date && <small>Date: {new Date(item.date).toLocaleDateString()}</small>}
+                  <Col>
+                    <h5>{item.name}</h5>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Notes: {item.notes}</p>
+                    <p>Category: {item.category}</p>
+                    <p>Date: {new Date(item.date).toLocaleDateString()}</p>
                   </Col>
-                  <Col md={4} className="text-end">
-                    <Button variant="outline-primary" className="me-2" onClick={() => handleEditItem(item)}>
+                  <Col className="text-end">
+                    <Button variant="outline-primary" onClick={() => handleEditItem(item)}>
                       <FaEdit />
                     </Button>
                     <Button variant="outline-danger" onClick={() => handleDeleteItem(item.id)}>
@@ -177,5 +199,8 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
+
+
+
 
 
