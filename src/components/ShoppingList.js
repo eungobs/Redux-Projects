@@ -31,7 +31,7 @@ const ShoppingList = () => {
   const items = useSelector((state) => state.items.items);
   const status = useSelector((state) => state.items.status);
   const [editId, setEditId] = useState(null);
-  const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '', category: 'Vegetables' });
+  const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const ShoppingList = () => {
     if (editItem.name && editItem.quantity) {
       dispatch(updateItem({ id: editId, updatedItem: editItem }));
       setEditId(null);
-      setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables' });
+      setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
     } else {
       alert("Please enter both item name and quantity");
     }
@@ -56,7 +56,7 @@ const ShoppingList = () => {
 
   const startEdit = (item) => {
     setEditId(item.id);
-    setEditItem({ name: item.name, quantity: item.quantity, notes: item.notes, category: item.category });
+    setEditItem({ name: item.name, quantity: item.quantity, notes: item.notes, category: item.category, date: item.date });
   };
 
   const handleLogout = () => {
@@ -72,7 +72,7 @@ const ShoppingList = () => {
   if (status === 'loading') return <Spinner animation="border" variant="primary" />;
 
   return (
-    <Container className="bg-dark text-light p-4 shopping-list-container">
+    <Container className="bg-light text-dark p-4 shopping-list-container">
       <Row className="mb-4">
         <Col md={8}>
           <h2 className="my-4">Shopping List</h2>
@@ -90,7 +90,7 @@ const ShoppingList = () => {
         <Col md={12}>
           <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              {selectedCategory || 'Select Category'}
+              {selectedCategory}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {categories.map(category => (
@@ -101,7 +101,7 @@ const ShoppingList = () => {
         </Col>
       </Row>
       <AddItemForm /> {/* Include AddItemForm here */}
-      <ListGroup>
+      <ListGroup className="mt-4">
         {filteredItems.map((item) => (
           <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center list-item">
             {editId === item.id ? (
@@ -130,13 +130,18 @@ const ShoppingList = () => {
                     <option key={category} value={category}>{category}</option>
                   ))}
                 </Form.Control>
+                <Form.Control
+                  type="date"
+                  value={editItem.date}
+                  onChange={(e) => setEditItem({ ...editItem, date: e.target.value })}
+                />
                 <Button variant="success" onClick={handleEdit}>Save</Button>
                 <Button variant="secondary" onClick={() => setEditId(null)}>Cancel</Button>
               </InputGroup>
             ) : (
               <div className="d-flex align-items-center justify-content-between">
                 <div>
-                  <span>{item.name} - {item.quantity} <br /> Notes: {item.notes} <br /> Category: {item.category}</span>
+                  <span>{item.name} - {item.quantity} <br /> Notes: {item.notes} <br /> Category: {item.category} <br /> Date: {new Date(item.date).toLocaleDateString()}</span>
                 </div>
                 <div>
                   <FaEdit className="icon edit-icon me-3" onClick={() => startEdit(item)} title="Edit" />

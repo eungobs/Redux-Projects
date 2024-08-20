@@ -1,40 +1,38 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-const app = express();
+const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
 
+const app = express();
 app.use(bodyParser.json());
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // You can use any service here
-  auth: {
-    user: 'your-email@gmail.com',
-    pass: 'your-email-password'
-  }
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-app.post('/send-email', (req, res) => {
+app.post('/send-email', async (req, res) => {
   const { email, listContent } = req.body;
 
-  // Basic email validation (you can use more robust validation)
+  // Basic email validation
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     return res.status(400).send('Invalid email address');
   }
 
-  const mailOptions = {
-    from: 'your-email@gmail.com',
+  const msg = {
     to: email,
+    from: process.env.EMAIL_USER,
     subject: 'Shared Shopping List',
-    text: listContent
+    text: listContent,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return res.status(500).send('Failed to send email');
-    }
+  try {
+    await sgMail.send(msg);
     res.status(200).send('Email sent successfully');
-  });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).send('Failed to send email');
+  }
 });
 
 app.listen(5000, () => console.log('Server running on port 5000'));
+
+

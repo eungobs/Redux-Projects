@@ -1,40 +1,37 @@
 .shopping-list-container {
   background-color: #343a40; /* Dark background color */
   color: #f8f9fa; /* Light text color */
-  border-radius: 10px; /* Rounded corners for the container */
+  border-radius: 8px; /* Rounded corners for the container */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle 3D effect */
 }
 
 .list-item {
   background-color: #495057; /* Slightly lighter background color for list items */
   margin-bottom: 10px;
+  border: 1px solid #dee2e6; /* Border for list items */
+  border-radius: 8px; /* Rounded corners for list items */
   border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners for list items */
 }
 
 .icon {
   cursor: pointer;
-  font-size: 1.2rem;
-  transition: color 0.3s;
+  font-size: 1.2em; /* Slightly larger icons */
+  transition: color 0.3s, opacity 0.3s; /* Smooth transition for color and opacity */
 }
 
 .edit-icon {
-  color: #17a2b8; /* Edit icon color */
+  color: #0d6efd; /* Edit icon color */
 }
 
 .delete-icon {
   color: #dc3545; /* Delete icon color */
 }
 
-.edit-icon:hover {
-  color: #138496; /* Darker shade for hover effect */
+.edit-icon:hover, .delete-icon:hover {
+  opacity: 0.8; /* Slightly transparent on hover */
 }
 
-.delete-icon:hover {
-  color: #c82333; /* Darker shade for hover effect */
-}
-
-input-group .form-control {
+.input-group .form-control {
   margin-right: 5px;
 }
 
@@ -53,7 +50,6 @@ input-group .form-control {
 .dropdown-item:hover {
   background-color: #343a40;
 }
-
 
 /* Media Queries for Responsiveness */
 @media (max-width: 1200px) {
