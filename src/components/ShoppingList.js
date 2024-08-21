@@ -29,7 +29,8 @@ const ShoppingList = () => {
     if (editId) {
       dispatch(updateItem({ id: editId, ...editItem }));
     } else {
-      dispatch(addItem(editItem));
+      const newItem = { ...editItem, id: Date.now() }; // Ensure a unique ID
+      dispatch(addItem(newItem));
     }
     setEditId(null);
     setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
@@ -214,24 +215,24 @@ const ShoppingList = () => {
         <Col md={6}>
           <ListGroup>
             {filteredItems.map((item) => (
-              <ListGroup.Item key={item.id}>
-                <Row>
-                  <Col>
-                    <h5>{item.name}</h5>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>Notes: {item.notes}</p>
-                    <p>Category: {item.category}</p>
-                    <p>Date: {new Date(item.date).toLocaleDateString()}</p>
-                  </Col>
-                  <Col className="text-end">
-                    <Button variant="outline-primary" onClick={() => handleEditItem(item)} className="me-2">
-                      <FaEdit />
-                    </Button>
-                    <Button variant="outline-danger" onClick={() => handleDeleteItem(item.id)} className="ms-2">
-                      <FaTrash />
-                    </Button>
-                  </Col>
-                </Row>
+              <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>{item.name}</strong> - {item.quantity}
+                  <div>
+                    <small>{item.notes}</small>
+                  </div>
+                  <div>
+                    <small>{item.category} - {new Date(item.date).toLocaleDateString()}</small>
+                  </div>
+                </div>
+                <div>
+                  <Button variant="warning" size="sm" onClick={() => handleEditItem(item)}>
+                    <FaEdit />
+                  </Button>
+                  <Button variant="danger" size="sm" onClick={() => handleDeleteItem(item.id)}>
+                    <FaTrash />
+                  </Button>
+                </div>
               </ListGroup.Item>
             ))}
           </ListGroup>
@@ -242,3 +243,4 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
+

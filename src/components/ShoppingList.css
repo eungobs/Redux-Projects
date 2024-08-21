@@ -22,6 +22,13 @@
   transition: transform 0.2s ease-in-out;
 }
 
+.item-container {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
 .list-item:hover {
   transform: translateY(-3px); /* Slight lift effect on hover */
 }
@@ -144,8 +151,14 @@ form {
 
 .dropdown-item:hover {
   background-color: #007bff;
+  color: rgb(212, 162, 235);
+}
+
+.selected-item {
+  background-color: blue;
   color: white;
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

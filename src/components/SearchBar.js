@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Form } from 'react-bootstrap';
 
-function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState('');
-
-  const handleChange = (event) => {
-    setQuery(event.target.value);
+const SearchBar = ({ onSearch }) => {
+  const handleChange = (e) => {
+    onSearch(e.target.value);
   };
 
-  useEffect(() => {
-    // Trigger search every time query changes
-    onSearch(query);
-  }, [query, onSearch]);
-
   return (
-    <div className="search-bar">
-      <input
-        type="text"
-        value={query}
-        onChange={handleChange}
-        placeholder="Search..."
-      />
-    </div>
+    <Form.Control
+      type="text"
+      placeholder="Search items..."
+      onChange={handleChange}
+    />
   );
-}
+};
 
 export default SearchBar;
+
