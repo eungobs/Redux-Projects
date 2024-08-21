@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
@@ -7,9 +7,10 @@ function SearchBar({ onSearch }) {
     setQuery(event.target.value);
   };
 
-  const handleSearch = () => {
+  useEffect(() => {
+    // Trigger search every time query changes
     onSearch(query);
-  };
+  }, [query, onSearch]);
 
   return (
     <div className="search-bar">
@@ -19,7 +20,6 @@ function SearchBar({ onSearch }) {
         onChange={handleChange}
         placeholder="Search..."
       />
-      <button onClick={handleSearch}>Search</button>
     </div>
   );
 }

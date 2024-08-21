@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems, addItem, updateItem, deleteItem } from '../features/items/itemSlice';
 import { FaPlus, FaWhatsapp, FaTrash, FaEdit } from 'react-icons/fa';
 import { Container, Row, Col, Form, Button, ListGroup, Dropdown } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import SearchBar from './SearchBar';
 import './ShoppingList.css';
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
   const items = useSelector((state) => state.items.items);
   const [editId, setEditId] = useState(null);
   const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -74,9 +76,16 @@ const ShoppingList = () => {
     navigate('/'); // Navigate to the homepage or login page
   };
 
-  const filteredItems = selectedCategory === 'All'
-    ? items
-    : items.filter(item => item.category === selectedCategory);
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredItems = items.filter(item => {
+    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+    const matchesQuery = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.notes.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesQuery;
+  });
 
   return (
     <Container className="shopping-list-container">
@@ -124,43 +133,77 @@ const ShoppingList = () => {
         </Col>
       </Row>
 
+      <Row className="mb-4">
+        <Col md={12}>
+          <SearchBar onSearch={handleSearch} />
+        </Col>
+      </Row>
+
       <Row>
         <Col md={6}>
           <Form>
             <Form.Group className="mb-3" controlId="formItemName">
               <Form.Label>Item Name</Form.Label>
-              <Form.Control type="text" name="name" value={editItem.name} onChange={handleInputChange} />
+              <Form.Control
+                type="text"
+                name="name"
+                value={editItem.name}
+                onChange={handleInputChange}
+                placeholder="Enter item name"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formItemQuantity">
               <Form.Label>Quantity</Form.Label>
-              <Form.Control type="text" name="quantity" value={editItem.quantity} onChange={handleInputChange} />
+              <Form.Control
+                type="text"
+                name="quantity"
+                value={editItem.quantity}
+                onChange={handleInputChange}
+                placeholder="Enter quantity"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formItemNotes">
               <Form.Label>Notes</Form.Label>
-              <Form.Control type="text" name="notes" value={editItem.notes} onChange={handleInputChange} />
+              <Form.Control
+                type="text"
+                name="notes"
+                value={editItem.notes}
+                onChange={handleInputChange}
+                placeholder="Enter notes"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formItemCategory">
               <Form.Label>Category</Form.Label>
-              <Form.Control as="select" name="category" value={editItem.category} onChange={handleInputChange}>
-                <option value="Vegetables">Vegetables</option>
-                <option value="Cleaning Products">Cleaning Products</option>
-                <option value="Cosmetics">Cosmetics</option>
-                <option value="Clothes">Clothes</option>
-                <option value="Hardware">Hardware</option>
-                <option value="Fruits">Fruits</option>
-                <option value="Bakery">Bakery</option>
-                <option value="Snacks">Snacks</option>
-                <option value="Beverages">Beverages</option>
-                <option value="Dairy Products">Dairy Products</option>
-                <option value="Meat">Meat</option>
-                <option value="Pharmacy">Pharmacy</option>
-                <option value="Frozen">Frozen</option>
-                <option value="Other">Other</option>
+              <Form.Control
+                as="select"
+                name="category"
+                value={editItem.category}
+                onChange={handleInputChange}
+              >
+                <option>Vegetables</option>
+                <option>Cleaning Products</option>
+                <option>Cosmetics</option>
+                <option>Clothes</option>
+                <option>Hardware</option>
+                <option>Fruits</option>
+                <option>Bakery</option>
+                <option>Snacks</option>
+                <option>Beverages</option>
+                <option>Dairy Products</option>
+                <option>Meat</option>
+                <option>Pharmacy</option>
+                <option>Frozen</option>
+                <option>Other</option>
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formItemDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" name="date" value={editItem.date} onChange={handleInputChange} />
+              <Form.Control
+                type="date"
+                name="date"
+                value={editItem.date}
+                onChange={handleInputChange}
+              />
             </Form.Group>
             <Button variant="primary" onClick={handleSaveItem}>
               {editId ? 'Update Item' : 'Add Item'}
@@ -170,9 +213,9 @@ const ShoppingList = () => {
 
         <Col md={6}>
           <ListGroup>
-            {filteredItems.map(item => (
+            {filteredItems.map((item) => (
               <ListGroup.Item key={item.id}>
-                <Row className="align-items-center">
+                <Row>
                   <Col>
                     <h5>{item.name}</h5>
                     <p>Quantity: {item.quantity}</p>
@@ -181,10 +224,10 @@ const ShoppingList = () => {
                     <p>Date: {new Date(item.date).toLocaleDateString()}</p>
                   </Col>
                   <Col className="text-end">
-                    <Button variant="outline-primary" onClick={() => handleEditItem(item)}>
+                    <Button variant="outline-primary" onClick={() => handleEditItem(item)} className="me-2">
                       <FaEdit />
                     </Button>
-                    <Button variant="outline-danger" onClick={() => handleDeleteItem(item.id)}>
+                    <Button variant="outline-danger" onClick={() => handleDeleteItem(item.id)} className="ms-2">
                       <FaTrash />
                     </Button>
                   </Col>
@@ -199,8 +242,3 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
-
-
-
-
-

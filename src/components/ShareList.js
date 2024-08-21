@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import SearchBar from './SearchBar';
 
 function ShareList() {
   const items = useSelector((state) => state.items.items);
+  const [filteredItems, setFilteredItems] = useState(items);
 
-  // Function to handle sharing via WhatsApp
+  // Function to handle WhatsApp sharing
   const handleWhatsappShare = () => {
-    const listContent = items
+    const listContent = filteredItems
       .map((item) => `${item.name} - ${item.quantity} - Category: ${item.category}`)
       .join('%0A');
 
@@ -15,12 +17,21 @@ function ShareList() {
     window.open(whatsappUrl, '_blank');
   };
 
+  // Function to handle search
+  const handleSearch = (query) => {
+    const filtered = items.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredItems(filtered);
+  };
+
   return (
     <div>
       <h2>Share Shopping List</h2>
+      <SearchBar onSearch={handleSearch} />
       <ListGroup>
-        {items.length > 0 ? (
-          items.map((item) => (
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item) => (
             <ListGroupItem key={item.id}>
               <strong>{item.name}</strong> - {item.quantity} - <em>Category: {item.category}</em>
             </ListGroupItem>

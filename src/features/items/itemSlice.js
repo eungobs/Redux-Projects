@@ -21,7 +21,7 @@ const itemSlice = createSlice({
       const { id, updatedItem } = action.payload;
       const index = state.items.findIndex((item) => item.id === id);
       if (index !== -1) {
-        state.items[index] = { ...state.items[index], ...updatedItem }; // Merge updates
+        state.items[index] = { ...state.items[index], ...updatedItem };
         state.status = 'succeeded';
       } else {
         state.status = 'failed'; // Item not found
@@ -70,7 +70,7 @@ export const editItem = (id, updatedItem) => async (dispatch) => {
   dispatch(setStatus('loading'));
   try {
     const response = await axios.put(`http://localhost:5000/items/${id}`, updatedItem);
-    dispatch(updateItem({ id, updatedItem: response.data })); // Use response data
+    dispatch(updateItem({ id, updatedItem: response.data }));
   } catch (error) {
     dispatch(setError('Failed to update item'));
     console.error('Failed to update item:', error);
