@@ -18,5 +18,22 @@
       "quantity": "1 liter",
       "notes": "Full cream"
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "hashed_password_here", 
+      "email": "admin@gmail.com",
+      "name": "Admin User"
+    },
+    {
+      "id": 2,
+      "username": "user1",
+      "password": "######",
+      "email": "user1@gmail.com",
+      "name": "Regular User"
+    }
   ]
 }
+

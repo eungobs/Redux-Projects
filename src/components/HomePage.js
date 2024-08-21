@@ -13,6 +13,7 @@ import './HomePage.css';
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
+  const [cookiesAccepted, setCookiesAccepted] = useState(false); // Cookies popup state
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated, loginError } = useSelector((state) => state.auth);
@@ -51,6 +52,10 @@ const HomePage = () => {
 
   const handleSocialClick = (url) => {
     window.open(url, '_blank');
+  };
+
+  const handleAcceptCookies = () => {
+    setCookiesAccepted(true); // Hide the popup
   };
 
   return (
@@ -135,6 +140,19 @@ const HomePage = () => {
       <footer className="homepage-footer">
         @2024 Shopping-List-Helper. All rights reserved.
       </footer>
+
+      {/* Cookies Popup */}
+      {!cookiesAccepted && (
+        <div className="cookies-popup">
+          <p>
+            We use cookies to ensure you get the best experience on our website.
+            <button onClick={() => navigate('/privacy')} className="btn btn-link">Read More</button>
+          </p>
+          <button onClick={handleAcceptCookies} className="btn btn-accept">
+            Accept
+          </button>
+        </div>
+      )}
     </div>
   );
 };

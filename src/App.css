@@ -4,6 +4,7 @@ body {
 
 .container {
   background: linear-gradient(to right, #deb887, #ffe4b5);
+  padding: 20px; /* Add padding to make the container visually appealing */
 }
 
 button {
@@ -13,8 +14,6 @@ button {
 .btn-info {
   background-color: #17a2b8;
 }
-
-/* Existing styles in App.css */
 
 /* Loader styles */
 .loader {
@@ -35,3 +34,252 @@ button {
   font-weight: bold;
 }
 
+/* Cookies Popup Styles */
+.cookies-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.cookies-popup p {
+  margin: 0 0 10px 0;
+}
+
+.cookies-popup .btn {
+  background: #17a2b8;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.cookies-popup .btn-link {
+  background: none;
+  color: #17a2b8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cookies-popup .btn-accept {
+  background: #28a745;
+}
+
+.cookies-popup .btn-accept:hover {
+  background: #218838;
+}
+
+/* Responsive Styles */
+@media (max-width: 1400px) {
+  .container {
+    padding: 18px;
+  }
+
+  .loader {
+    font-size: 16px;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 16px;
+  }
+
+  .loader {
+    font-size: 15px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    padding: 14px;
+  }
+
+  .loader {
+    font-size: 14px;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 980px) {
+  .container {
+    padding: 12px;
+  }
+
+  .loader {
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 940px) {
+  .container {
+    padding: 10px;
+  }
+
+  .loader {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 920px) {
+  .container {
+    padding: 10px;
+  }
+
+  .loader {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 878px) {
+  .container {
+    padding: 8px;
+  }
+
+  .loader {
+    font-size: 11px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 840px) {
+  .container {
+    padding: 8px;
+  }
+
+  .loader {
+    font-size: 10px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 784px) {
+  .container {
+    padding: 8px;
+  }
+
+  .loader {
+    font-size: 10px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 6px;
+  }
+
+  .loader {
+    font-size: 9px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 740px) {
+  .container {
+    padding: 6px;
+  }
+
+  .loader {
+    font-size: 9px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 4px;
+  }
+
+  .loader {
+    font-size: 8px;
+    padding: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 4px;
+  }
+
+  .loader {
+    font-size: 8px;
+    padding: 4px;
+  }
+}
+
+@media (max-width: 580px) {
+  .container {
+    padding: 4px;
+  }
+
+  .loader {
+    font-size: 7px;
+    padding: 4px;
+  }
+}
+
+@media (max-width: 540px) {
+  .container {
+    padding: 2px;
+  }
+
+  .loader {
+    font-size: 7px;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2px;
+  }
+
+  .loader {
+    font-size: 6px;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding: 2px;
+  }
+
+  .loader {
+    font-size: 5px;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding: 2px;
+  }
+
+  .loader {
+    font-size: 5px;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    padding: 2px;
+  }
+
+  .loader {
+    font-size: 4px;
+    padding: 2px;
+  }
+}

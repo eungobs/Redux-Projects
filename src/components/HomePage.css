@@ -145,7 +145,45 @@
   background-color: #45a049; /* Darker green */
 }
 
+/* Cookies Popup Styles */
+.cookies-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  z-index: 1000;
+}
 
+.cookies-popup p {
+  margin: 0 0 10px 0;
+}
+
+.cookies-popup .btn {
+  background: #17a2b8;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.cookies-popup .btn-link {
+  background: none;
+  color: #17a2b8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cookies-popup .btn-accept {
+  background: #28a745;
+}
+
+.cookies-popup .btn-accept:hover {
+  background: #218838;
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 1200px) {
