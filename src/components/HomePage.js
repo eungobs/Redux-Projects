@@ -63,7 +63,7 @@ const HomePage = () => {
       <div
         className="homepage-image"
         style={{
-          backgroundImage: `url('/images/shopinglistimage.png')`,
+          backgroundImage: `url('/images/backgroundimage.png')`,
         }}
       />
       <div className="homepage-text">
@@ -158,3 +158,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+

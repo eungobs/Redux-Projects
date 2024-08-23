@@ -159,6 +159,26 @@ form {
   color: white;
 }
 
+.bought {
+  text-decoration: line-through;
+  color: #6c757d;
+  background-color: #e9ecef;
+}
+
+/* Style for the tick button */
+button .fa-check {
+  color: white; /* Text color of the check icon */
+}
+
+button[disabled] .fa-check {
+  color: #ccc; /* Disabled state color for the check icon */
+}
+
+/* Additional styles for ListGroup items */
+.list-group-item {
+  margin-bottom: 10px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

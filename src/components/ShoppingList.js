@@ -8,23 +8,31 @@ import SearchBar from './SearchBar';
 import './ShoppingList.css';
 
 const ShoppingList = () => {
+  // Initialize Redux dispatch function and navigate function
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Retrieve items from the Redux store
   const items = useSelector((state) => state.items.items);
+
+  // State for managing item editing and filtering
   const [editId, setEditId] = useState(null);
   const [editItem, setEditItem] = useState({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Fetch items when the component mounts
   useEffect(() => {
     dispatch(fetchItems());
   }, [dispatch]);
 
+  // Handle changes in form inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditItem((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Save or update an item based on editId
   const handleSaveItem = () => {
     if (editId) {
       dispatch(updateItem({ id: editId, ...editItem }));
@@ -36,19 +44,23 @@ const ShoppingList = () => {
     setEditItem({ name: '', quantity: '', notes: '', category: 'Vegetables', date: '' });
   };
 
+  // Set up an item for editing
   const handleEditItem = (item) => {
     setEditId(item.id);
     setEditItem(item);
   };
 
+  // Delete an item
   const handleDeleteItem = (id) => {
     dispatch(deleteItem(id));
   };
 
+  // Filter items by category
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
 
+  // Generate message for sharing the list via WhatsApp
   const generateListMessage = (items) => {
     let message = 'Here is my shopping list:\n\n';
     items.forEach(item => {
@@ -67,20 +79,24 @@ const ShoppingList = () => {
     return encodeURIComponent(message);
   };
 
+  // Share the list via WhatsApp
   const handleShare = () => {
     const message = generateListMessage(items);
     const whatsappUrl = `https://wa.me/?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
 
+  // Log out and navigate to the homepage or login page
   const handleLogout = () => {
     navigate('/'); // Navigate to the homepage or login page
   };
 
+  // Handle search query input
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
 
+  // Filter items based on category and search query
   const filteredItems = items.filter(item => {
     const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
     const matchesQuery = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -114,6 +130,7 @@ const ShoppingList = () => {
               Filter by Category: {selectedCategory}
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              {/* Dropdown menu for selecting item category */}
               <Dropdown.Item onClick={() => handleCategoryChange('All')}>All</Dropdown.Item>
               <Dropdown.Item onClick={() => handleCategoryChange('Vegetables')}>Vegetables</Dropdown.Item>
               <Dropdown.Item onClick={() => handleCategoryChange('Cleaning Products')}>Cleaning Products</Dropdown.Item>
@@ -143,6 +160,7 @@ const ShoppingList = () => {
       <Row>
         <Col md={6}>
           <Form>
+            {/* Form for adding or editing items */}
             <Form.Group className="mb-3" controlId="formItemName">
               <Form.Label>Item Name</Form.Label>
               <Form.Control
@@ -214,24 +232,32 @@ const ShoppingList = () => {
 
         <Col md={6}>
           <ListGroup>
+            {/* Display the list of items */}
             {filteredItems.map((item) => (
-              <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
-                <div>
-                  <strong>{item.name}</strong> - {item.quantity}
+              <ListGroup.Item key={item.id}>
+                <div className="d-flex justify-content-between align-items-center">
                   <div>
-                    <small>{item.notes}</small>
+                    <h5>{item.name}</h5>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Notes: {item.notes}</p>
+                    <p>Category: {item.category}</p>
+                    <p>Date: {item.date ? new Date(item.date).toLocaleDateString() : ''}</p>
                   </div>
                   <div>
-                    <small>{item.category} - {new Date(item.date).toLocaleDateString()}</small>
+                    <Button
+                      variant="outline-warning"
+                      className="me-2"
+                      onClick={() => handleEditItem(item)}
+                    >
+                      <FaEdit />
+                    </Button>
+                    <Button
+                      variant="outline-danger"
+                      onClick={() => handleDeleteItem(item.id)}
+                    >
+                      <FaTrash />
+                    </Button>
                   </div>
-                </div>
-                <div>
-                  <Button variant="warning" size="sm" onClick={() => handleEditItem(item)}>
-                    <FaEdit />
-                  </Button>
-                  <Button variant="danger" size="sm" onClick={() => handleDeleteItem(item.id)}>
-                    <FaTrash />
-                  </Button>
                 </div>
               </ListGroup.Item>
             ))}
@@ -243,4 +269,3 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
-
